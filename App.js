@@ -792,6 +792,8 @@ export default App;
 //         consWarn[a].type = type
 //         consWarn[a].error = error
 //         consWarn[a].measure = measure
+
+
 //         consWarn[a].barLength = barLength
 //         consWarn[a].up = up
 //         consWarn[a].down = down
