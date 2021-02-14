@@ -944,7 +944,7 @@ console.log(x, row.length)
                   row[x][8].measure = null;
                   let kind = 2
                   this.setState({ row })
-                  this.findStartingMeasure(x, kind); //    ------  findStartingMeasure => checkingStartingTS => tolastNewMeasure => measureLengthCalc
+                  this.findStartingMeasure(x, kind); //    ------  findStartingMeasure => checkingStartingTS => toLastNewMeasure => measureLengthCalc
                   let rowX 
                   this.setMeasureNum(x, rowX, kind);
                   let measure = 1
@@ -995,7 +995,7 @@ setStarting = cell => { // contain console ---------------------- passing functi
         console.log(" clef not complete")
       }
       else {
-        let type = 2;
+        let type = 4;
         let error = 6;
         let measure = row[x + 1][8].measure
         this.props.removeWarning(type, measure, error)
@@ -1043,7 +1043,7 @@ findStartingMeasure = (x, kind) => {
         }
         if (kind === 2) {
           let kind = 2;
-          this.tolastNewMeasure(x, rowX, kind);
+          this.toLastNewMeasure(x, rowX, kind);
           this.measureLengthCalc (x, rowX, kind)
         }
   // -------------------------KS-----------------------------------
@@ -1052,13 +1052,9 @@ findStartingMeasure = (x, kind) => {
     this.checkStartingClef(x, rowX, kind);
   }
 
-
-
-
-
 };
 //----------------------------------------------------TS----------------------------------------------------------------------------------------
-tolastNewMeasure=(x, rowX, kind)=> {
+toLastNewMeasure=(x, rowX, kind)=> {
   console.log("Get last clicable position's X axis")
   let row = this.state.row
 
@@ -1083,8 +1079,6 @@ tolastNewMeasure=(x, rowX, kind)=> {
           this.props.removeWarning(type, measure, error)
         }
         console.log("barcount =", barCount )
-
-
 
       }
 };
@@ -1164,9 +1158,6 @@ for(let b = x + 1; b <= row.length - 1; b++) {
   }
 
 }
-
-
-
 
 };
 measureLengthCalc = (x, rowX, kind) => { // ------- get measure length   --- if kind 1, get measure length of left measure and right measure
@@ -1449,9 +1440,9 @@ checkStartingClef = (x, rowX, kind) => {
 console.log(row[a][0])
   if (row[a][0].clef === null) {
 
-      let type = 2
-      let measure = row[a + 1][8].measure
-      let error = 6
+      let type = 4;
+      let measure = row[a + 1][8].measure;
+      let error = 6;
       this.props.consoleWarningClef(type, measure, error)
     
   }
@@ -1459,6 +1450,9 @@ console.log(row[a][0])
     this.measureLengthCalc(x, rowX, kind)
   }
 };
+
+//----------------------------------------------------------------------------------------------------------------------------------------------
+
 componentDidMount() {
   this.createMeasureRow();
   this.createRow();
@@ -1466,13 +1460,14 @@ componentDidMount() {
   this.props.insertStartingMeasure(this.insertStartingMeasure);
   this.props.setStarting(this.setStarting);
   this.props.removeStartingMeasure(this.removeStartingMeasure);
-
 };
-measure1(){
+
+measure1() {
   let row = this.state.row
   row[1][8].measure = 1;
   this.setState({ row });
 }
+
   //-----------------------------RENDER HERE------------------------------------
   render() {
 
@@ -1514,347 +1509,4 @@ measure1(){
 }
 
 export default Board;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Think mo nga POINTING SYSTEM ang equivalent sang mga notes
-
-// whole = 4
-// half =  2
-// quarter = 1
-// eight = 1/2
-
-// Sa isa ka measure, dapat ma perfect mo comply ang TOTAL SCORE
-
-// Bale combine ka sang mga notes para makuha mo ang TOTAL SCORE
-
-// Mangkot. Paano mo mabal.an ang TOTAL SCORE ??
-
-// And there is where time signature comes...
-
-// ----- Let's Start ----
-
-// 1. Sa 3 4 time singature... sa babaw ang 3, sa idalom ang 4...
-
-// tan.awon mo danay ang sa idalom.. diba 4 na da? okay...
-
-// 2. Balik ka sa POINTING SYSTEM ta.. ano nga note ang 
-//   maka pareho sa semibreve(whole note) 4 times? kay 4 to sa idalom diba?
-
-//   try ta isa isa:
-
-
-//   Whole note: 4*4 = 16
-//   4 /= 16 . . .  wrong
-
-//   half note: 2*4 = 8
-//   4 /= 8 . . . wrong man giapon haha
-
-//   quarter note: 1*4 = 4
-//   4 = 4 correct na
-
-//   so bale QUARTER NOTE ang sabat... yey
-
-
-// 3. Ibutang ta ang quarter note sa Bar(measure)
-
-// Q = quarter note
-
-// bar:  Q
-
-// then tan.awa sa ang number sa babaw sang time signature..
-  
-// diba 3 ? nan, bale tatlo ka quarter note sa isa ka measure
-    
-// bar: Q Q Q  bar line:
-
-// 4. add mo tanan nga value sang note sa silod sang bar nga na, gamita ang pointing POINTING SYSTEM
-
-// quarter = 1
-// TOTAL SCORE = 1 + 1 + 1 = 3
-
-
-// so total score mo is 3
-
-// pwede mo na ina ma pyramid
-
-// 1st: 1 dotted half note = 3
-// 2nd: 3 quarter note = 3
-// 3rd: 6 eight note = 3
-// and so on...
-
-// every level dapat samg man nga 3 .. yep pareho sa TOTAL SCORE..And
-// good Luck explain kay ALiza hahaha 
-
-
-
-
-
-// import React, { Component } from 'react';
-// import Row from "./Row";
-
-//   class row extends Component {
-    
-//     constructor(props) {
-//       super(props);
-
-//       this.state = {
-        
-//         rows: this.createRow(props)
-//       }
-//     }
-
-// // ----------------------------------every cell properties---------------------------
-// createRow = props => {
-//   // create 2d grid for our row based off the number of columns and rows passed in from props
-//   let row = [];
-  
-//   for (let i = 0; i < props.cols; i++) {
-//     row.push([]);
-//     for (let j = 0; j < props.rows; j++) {      
-//       row[i].push({
-//         y: j,
-//         x: i,
-//         isOpen: false, 
-//         enabler: false, // hide the cell if false --------------------
-//         l: false, // gives line on the cell if true --------------------
-//         clickable: true,
- 
-//         colIsOpenCount: 0,
-//         noteLength: 0,// cell will unclicable if enabler is false ----------------------
-
-//       });
-//     } 
-//   // Make enabler true for the first column--------------SET DEFAULT---------------------------------
-//   }
-//   for (let i = 0; i < props.cols; i++) {
-//     let firstCol = Math.floor(0);
-//     let firstRow = Math.floor(i);
-//     let cell = row[firstRow][firstCol];
-//     cell.enabler = true;
-//   }
-
-//   // Make enabler line style for staff--------------SET DEFAULT--------------------------------------
-//   for (let a = 0; a <  props.rows; a++) {
-
-//       for (let e = 0; e < 5; e++) {
-//         let inc = e + e;
-//         let col = Math.floor(5 + inc);
-//         let row = Math.floor(a);
-//         let cell = row[col][row];
-//         cell.l= true;
-//       }
-//     }
-  
-//   return row;
-// };
-
-// // ----------------------------------every cell properties---------------------------
-
-//     //-------------------------------Open or close cells----------------------------------
-// open = cell => {
-
-//     let rows = this.state.rows;
-//     let rowLength = this.props.rows;
-//     let current = rows[cell.x][cell.y ];
-//     let colCheck = rows[cell.x - cell.x][cell.y];
-    
-//   //switch isOpen to true or false --------------------isOpen = TRUE-------------------------------
-//       if (current.isOpen === false) {
-//         current.isOpen = true;
-//         current.l = true;
-//         colCheck.colIsOpenCount = colCheck.colIsOpenCount + 1;
-                
-//         // restrictions-----------------
-//           // check it's left column when right edge is clicked then switch all of its enabler to TRUE ---------
-//           if (cell.y === rowLength - 1) {
-//             this.openLeftSideCell(cell);              
-//             };
-
-//           // check it's right column when left edge is clicked then switch all of its enabler to TRUE ---------
-//           if (cell.y === 0 || cell.y < rowLength -1) {                
-//               this.openRightSideCell(cell);
-//           };
-//       }
-//       //switch isOpen to true or false --------------------isOpen = FALSE--------------------------------------
-//         else {
-//           current.isOpen = false;
-//           current.l = false;
-//           colCheck.colIsOpenCount = colCheck.colIsOpenCount - 1;          
-//           // restriction in finding left edge----------------------------------------------------------------
-
-//             if (cell.y === rowLength - 1) {
-//               this.closeLeftSideCell(cell);
-//             };
-
-//             if (cell.y <= 1 ) {
-//               this.closeRightSideCell(cell);
-//             };
-
-//             if (cell.y >= 2 && cell.y < rowLength -1) {
-//               this.closeLeftSideCell(cell);
-//               this.closeRightSideCell(cell);
-//             };         
-//           }
-//         this.setState({ rows });
-//           console.log(this.state.rows);
-//         };
-// //-----------------------------------------Swithing enabler to True-------------------------------------------------------------------------
-
-//     // left row enabler swith to True-----------------------------------------
-
-// openLeftSideCell = cell => {
-//   let rows = this.state.rows;
-//   let colsLength = this.props.cols;
-//   let i = 0;
-    
-//     while ( i < colsLength ) {
-//       let a = rows[cell.x - cell.x  + i][cell.y - 1];
-//       a.enabler = true;
-//       i++;
-//     }    
-// }
-//     // right row enabler swith to True-----------------------------------------
-
-// openRightSideCell = cell => {
-//   let rows = this.state.rows;
-//   let colsLength = this.props.cols;
-//   let i = 0;
-
-//     while ( i < colsLength) {
-//       let a = rows[cell.x - cell.x + i][cell.y + 1];
-//       a.enabler = true;
-//       i++;
-//     }    
-// };
-// //-----------------------------------------Swithing LEFT enabler to False-------------------
-// closeLeftSideCell = cell => {
-//   let rows = this.state.rows;
-//   let a = rows[cell.x - cell.x][cell.y - 1];
-
-//     if (a.colIsOpenCount === 0) {this.checkLeft(cell);}  
-// };
-
-// checkLeft = cell => {
-//   let rows = this.state.rows;
-//   let colsLength = this.props.cols;
-//   let i = 0;
-//         while ( i < colsLength) {
-//           let a = rows[cell.x - cell.x + i][cell.y - 1];
-//           a.enabler = false;
-//           i++;
-//         }
-// }
-// //-----------------------------------------Swithing RIGHT enabler to False------------------
-// closeRightSideCell = cell => {
-//   let rows = this.state.rows;
-//   let a = rows[cell.x - cell.x][cell.y + 1];
-
-//     if (a.colIsOpenCount === 0) {this.checkRight(cell);}  
-// };
-// checkRight = cell => {
-//   let rows = this.state.rows;
-//   let colsLength = this.props.cols;
-//   let i = 0;
-
-//         while ( i < colsLength) {
-//           let a = rows[cell.x - cell.x + i][cell.y + 1];
-//           a.enabler = false;
-//           i++;
-//         }
-// };
-// //-----------------------------------------find isOpen=TRUE from side colums--------------------------------------------------------------------------
-
-//    //-----------------------------RENDER HERE------------------------------------
-
-//   render() {
-//     let rows = this.state.rows.map((row,index) => {
-        
-//       return (
-//         <Row
-//           cells= {row}
-//           key= {index}
-//           open={this.open}
-//        />
-//       )
-//     })
-//       return (<div className= "row">{rows}
-//       </div>);
-//   }
-// }
-
-// export default row;
-
-
-
 
